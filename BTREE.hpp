@@ -289,8 +289,6 @@ void merge ( BTreenode& sib1, BTreenode& sib2 , BTreenode& nod, ll idx)
     if ( nod.len == 0 )
     {
         nod = sib1;
-        for ( ll i = 0; i < BMAX; i ++)
-            trace(nod.data[i]);
         nod.isleaf = 1;   
     }   
 }
@@ -328,7 +326,6 @@ void del ( BTreenode& nod, ll val , bool done )
         else
         {
             pair < BTreenode* , ll > xx = findpre(*nod.pointers[idx]);
-            trace(xx.sec);
             nod.data[idx] = xx.sec;
             del(*nod.pointers[idx],xx.sec,0);
         }
@@ -379,11 +376,9 @@ void INSERT ( ll val )
     insert ( *root, val , le , ri , d );
     if ( !d )
     {
-        trace(val);
         root = new BTreenode();
         root->isleaf = 0;
         root->len = 1;
-        trace(le,ri,lt,rt);
         (root->data)[0] = val;
         (root->pointers)[0] = le;
         (root->pointers)[1] = ri;
@@ -409,58 +404,7 @@ void PRINT ( bool val )
     cout << endl;
 }
 
-int main()
-{
 
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    #ifndef ONLINE_JUDGE
-    freopen("input.txt","r",stdin);
-    freopen("output2.txt","w",stdout);
-    #endif
-    le = new BTreenode();
-    ri = new BTreenode();
-    lt = le;
-    rt = ri;
-    // root may also change while splitting
-    root = new BTreenode();
-    // root is the pointer
-    PRINT ( SEARCH ( 2 ) ) ;
-    INSERT( 2 );
-    INSERT( 4 );
-    INSERT( 6 );
-    INSERT( 8 );
-    INSERT( 10 );
-    INSERT( 20 );
-    INSERT( 40 );
-    INSERT( 60 );
-    INSERT( 80 );
-    DELETE(6);
-    DELETE(20);
-    DELETE(80);
-    DELETE(8);
-    PRINTSEARCH(6);
-    DELETE(10);
-    trace(root->data[0]);
-    for ( ll i = 0; i < root->len; i ++)
-        cout << root->data[i] << " ";
-    DELETE(2);
-    trace(root->data[0]);
-    for ( ll i = 0; i < root->len; i ++)
-        cout << root->data[i] << " ";
-    DELETE(40);
-    trace(root->data[0]);
-    for ( ll i = 0; i < root->len; i ++)
-        cout << root->data[i] << " ";
-    DELETE(4);
-    trace(root->data[0]);
-    for ( ll i = 0; i < root->len; i ++)
-        cout << root->data[i] << " ";
-    DELETE(60);
-    trace(root->data[0]);
-    for ( ll i = 0; i < root->len; i ++)
-        cout << root->data[i] << " ";
-}
 #endif
 
 
