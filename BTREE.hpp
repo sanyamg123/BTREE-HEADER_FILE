@@ -1,6 +1,14 @@
 #ifndef _BTREE_HPP
 #define _BTREE_HPP
 #include<iostream>
+<<<<<<< HEAD
+#include<vector>
+#define ll int
+#define fi first
+#define sec second
+#define mp make_pair
+using namespace std;
+=======
 #include<stdio.h>
 #include<algorithm>
 #include<math.h>
@@ -77,6 +85,7 @@ typedef tree< ll, null_type, less<ll>, rb_tree_tag,
 tree_order_statistics_node_update > OST;
 // typedef priority_queue< pair < ll,pii >  , vector<pair <ll,pii>> > max_pq;
 // typedef priority_queue<pair <pii,pii>, vector<pair <pii,pii> > , greater <pair <pii,pii> >  > min_pq;
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
 ll BMAX = 5;
 ll BMIN = 2;
 class BTreenode{  
@@ -104,7 +113,11 @@ class BTreenode{
 };
 BTreenode* le;BTreenode* ri; 
 BTreenode* lt;BTreenode* rt;
+<<<<<<< HEAD
+pair < BTreenode*, bool >  searchinnode ( BTreenode& nod, ll val)
+=======
 pair < BTreenode*, bool >  searchinnode ( BTreenode& nod, ll val )
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
 {
     ll idx = nod.len;
     bool found = 0;
@@ -124,8 +137,12 @@ pair < BTreenode*, bool >  searchinnode ( BTreenode& nod, ll val )
     }
     return mp ( nod.pointers[idx], found);
 }
+<<<<<<< HEAD
+void insertinnode( BTreenode& nod , ll& val, BTreenode* &left, BTreenode* &right, BTreenode* &root)
+=======
 BTreenode* root;
 void insertinnode( BTreenode& nod , ll& val, BTreenode* &left, BTreenode* &right)
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
 {
     bool flg = 0; 
     for ( ll i = 0; i < nod.len; i ++ )
@@ -148,7 +165,11 @@ void insertinnode( BTreenode& nod , ll& val, BTreenode* &left, BTreenode* &right
     nod.pointers.resize(BMAX+1,NULL);
     nod.len ++;
 }
+<<<<<<< HEAD
+void split ( BTreenode& nod , ll& val, BTreenode* &left, BTreenode* &right, BTreenode* &root)
+=======
 void split ( BTreenode& nod , ll& val, BTreenode* &left, BTreenode* &right)
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
 {
     BTreenode* newnode = new BTreenode();
     ll xx = nod.data[BMAX/2];
@@ -167,39 +188,69 @@ void split ( BTreenode& nod , ll& val, BTreenode* &left, BTreenode* &right)
     else
         newnode->isleaf = 0;
     if ( val <= nod.data[BMAX/2] )
+<<<<<<< HEAD
+        insertinnode(nod,val,left,right,root);
+    else
+        insertinnode(*newnode,val,left,right,root);
+=======
         insertinnode(nod,val,left,right);
     else
         insertinnode(*newnode,val,left,right);
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
     left = &nod;
     right = newnode;
     val = xx;
 }
+<<<<<<< HEAD
+void insert ( BTreenode& nod, ll& val, BTreenode* &left, BTreenode* &right, bool& done, BTreenode* &root)
+=======
 void insert ( BTreenode& nod, ll& val, BTreenode* &left, BTreenode* &right, bool& done)
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
 {
     if ( nod.isleaf )
     {
         if ( nod.len == BMAX )
         {
+<<<<<<< HEAD
+            split (nod,val,left,right,root);
+        }
+        else
+        {
+            insertinnode(nod,val,left,right,root);
+=======
             split (nod,val,left,right);
         }
         else
         {
             insertinnode(nod,val,left,right);
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
             done = 1;
         }
         return ;
     }
     pair < BTreenode*, bool >  direct = searchinnode ( nod, val);
+<<<<<<< HEAD
+    insert(*direct.fi,val,left,right,done,root);
+=======
     insert(*direct.fi,val,left,right,done);
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
     if ( !done )
     {
         if ( nod.len == BMAX )
         {
+<<<<<<< HEAD
+            split (nod,val,left,right,root);
+        }
+        else
+        {
+            insertinnode(nod,val,left,right,root);
+=======
             split (nod,val,left,right);
         }
         else
         {
             insertinnode(nod,val,left,right);
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
             done = 1;
         }
         if ( &nod == root and !done )
@@ -292,7 +343,11 @@ void merge ( BTreenode& sib1, BTreenode& sib2 , BTreenode& nod, ll idx)
         nod.isleaf = 1;   
     }   
 }
+<<<<<<< HEAD
+void del ( BTreenode& nod, ll val , bool done, BTreenode* &root)
+=======
 void del ( BTreenode& nod, ll val , bool done )
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
 {
     bool found = 0;
     ll idx = nod.len;
@@ -327,12 +382,20 @@ void del ( BTreenode& nod, ll val , bool done )
         {
             pair < BTreenode* , ll > xx = findpre(*nod.pointers[idx]);
             nod.data[idx] = xx.sec;
+<<<<<<< HEAD
+            del(*nod.pointers[idx],xx.sec,0,root);
+=======
             del(*nod.pointers[idx],xx.sec,0);
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
         }
     }
     else
     {
+<<<<<<< HEAD
+        del(*nod.pointers[idx],val,0,root);
+=======
         del(*nod.pointers[idx],val,0);
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
     }
     if ( (nod.len < BMIN and &nod!=root) or (*nod.pointers[idx]).len < BMIN )
         done = 0;
@@ -364,16 +427,28 @@ void del ( BTreenode& nod, ll val , bool done )
         done = 1;
 
 }
+<<<<<<< HEAD
+bool SEARCH ( BTreenode* &root, ll val )
+{
+    return search ( *root, val );
+}
+void INSERT ( BTreenode* &root, ll val )
+=======
 bool SEARCH ( ll val )
 {
     return search ( *root, val );
 }
 void INSERT ( ll val )
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
 {
     bool d = 0;
     le = lt;
     ri = rt;
+<<<<<<< HEAD
+    insert ( *root, val , le , ri , d ,root);
+=======
     insert ( *root, val , le , ri , d );
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
     if ( !d )
     {
         root = new BTreenode();
@@ -384,14 +459,24 @@ void INSERT ( ll val )
         (root->pointers)[1] = ri;
     }
 }
+<<<<<<< HEAD
+void DELETE ( BTreenode* &root , ll val )
+{
+    if ( !SEARCH(root, val) )
+=======
 void DELETE ( ll val )
 {
     if ( !SEARCH(val) )
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
         cout << "VALUE TO BE DELETED DOESN'T EXIST\n";
     else
     {
         bool d = 0;
+<<<<<<< HEAD
+        del(*root,val,d,root);
+=======
         del(*root,val,d);
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
         cout << "VALUE DELETED\n";
     }
 }
@@ -403,8 +488,18 @@ void PRINT ( bool val )
         cout << "NO";
     cout << endl;
 }
+<<<<<<< HEAD
+void PRINTROOTDATA ( BTreenode* &root )
+{
+    cout << "CONTENTS OF ROOT ARE :\n";
+    for ( ll i = 0; i < (root->len); i ++)
+        cout << root->data[i] <<" ";
+    cout <<"\n";
+}
+=======
 
 
+>>>>>>> 1026a8ae6837d1a9187e086e81f35d3446e507b5
 #endif
 
 
